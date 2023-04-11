@@ -5,9 +5,10 @@ import { toast } from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillGithub } from 'react-icons/ai';
-import { use, useCallback, useState } from 'react';
-import { Field, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useCallback, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
+import useLoginModal from '@/app/hooks/useLoginModal';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 
 import Modal from './Modal';
@@ -17,6 +18,7 @@ import Input from '../inputs/Input';
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -40,6 +42,11 @@ const RegisterModal = () => {
       .catch(() => toast.error('Something went wrong'))
       .finally(() => setIsLoading(false));
   };
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -99,7 +106,7 @@ const RegisterModal = () => {
           <div>Already have an account?</div>
 
           <div
-            onClick={registerModal.onClose}
+            onClick={toggle}
             className="text-neutral-800 cursor-pointer hover:underline"
           >
             Log in
