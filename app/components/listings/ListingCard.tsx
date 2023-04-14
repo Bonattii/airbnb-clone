@@ -8,13 +8,13 @@ import { useCallback, useMemo } from 'react';
 import Button from '../Button';
 import HeartButton from '../HeartButton';
 
-import { SafeUser } from '@/app/types';
-import { Listing, Reservation } from '@prisma/client';
+import { Reservation } from '@prisma/client';
+import { SafeListing, SafeUser } from '@/app/types';
 
 import useCountries from '@/app/hooks/useCountries';
 
 interface ListingCardProps {
-  data: Listing;
+  data: SafeListing;
   reservation?: Reservation;
   onAction?: (id: string) => void;
   disabled?: boolean;

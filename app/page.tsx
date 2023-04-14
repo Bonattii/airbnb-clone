@@ -29,7 +29,7 @@ export default async function Home() {
             xl:grid-cols-5 2xl:grid-cols-6
           "
         >
-          {listings.map((listing: any) => (
+          {listings.map(listing => (
             <ListingCard
               data={listing}
               key={listing.id}
